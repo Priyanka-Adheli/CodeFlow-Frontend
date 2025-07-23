@@ -222,7 +222,7 @@ return (
               </div>
             </div>
           </div>
-
+          <PotdCard/>
           {/* Problems List */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
