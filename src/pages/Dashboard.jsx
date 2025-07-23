@@ -174,8 +174,8 @@ function Dashboard() {
                 <h3 className="text-lg font-bold text-indigo-800 dark:text-white">Leaderboard</h3>
                 <a className="text-sm text-indigo-700 font-semibold cursor-pointer" onClick={() => navigate("/leaderboard")}>View all</a>
               </div>
-              {!problemSolvedInfo ? (
-  <p className="text-sm text-gray-500 text-center">No recent submissions</p>
+              {!leaderboardData ? (
+  <p className="text-sm text-gray-500 text-center">No Leaderboard Data Available</p>
 ) : (
               <div className="overflow-x-auto">
                 <table className="table w-full text-sm">
