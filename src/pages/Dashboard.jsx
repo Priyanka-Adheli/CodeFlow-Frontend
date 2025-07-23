@@ -189,7 +189,7 @@ function Dashboard() {
                     </tr>
                   </thead>
                   <tbody>
-                    {leaderboardData.map(user => (
+                    {leaderboardData.slice(0,3).map(user => (
                       <tr key={user.name} className="font-semibold text-gray-600 dark:text-white">
                         <td>{user.rank}</td>
                         <td>{user.name}</td>
