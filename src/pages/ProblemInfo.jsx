@@ -244,8 +244,8 @@ const ProblemInfo = () =>{
                 {problemData.tags.map((topic, index) => (
                     <span 
                         key={index} 
-                        className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-xs rounded border border-gray-200 dark:border-gray-600 shimmer-text-gray"
-                    >
+                         className="font-semibold px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded 
+                        border border-gray-200 dark:bg-gray-800 dark:border-white dark:text-white">
                         {topic}
                     </span>
                 ))}
