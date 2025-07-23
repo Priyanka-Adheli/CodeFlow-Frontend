@@ -576,13 +576,13 @@ Submit
     <div className="p-4">
       <div className="mb-4">
         <h4 className="text-sm font-medium text-gray-700 mb-1 dark:text-white">Input</h4>
-        <pre className="bg-gray-50 p-3 rounded text-sm font-mono overflow-x-auto dark:bg-gray-700">
+        <pre className="bg-gray-50 p-3 rounded text-sm font-mono overflow-x-auto dark:bg-gray-700 dark:text-white">
           {problemData.visibleTestCases[activeTestCase].input}
         </pre>
       </div>
       <div>
         <h4 className="text-sm font-medium text-gray-700 mb-1 dark:text-white">Expected Output</h4>
-        <pre className="bg-gray-50 p-3 rounded text-sm font-mono overflow-x-auto dark:bg-gray-700">
+        <pre className="bg-gray-50 p-3 rounded text-sm font-mono overflow-x-auto dark:bg-gray-700 dark:text-white">
           {problemData.visibleTestCases[activeTestCase].output}
         </pre>
       </div>
