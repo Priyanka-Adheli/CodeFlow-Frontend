@@ -8,7 +8,6 @@ import { checkAuth } from "./authSlice";
 import { useEffect } from "react";
 import ProblemCreate from "./pages/ProblemCreatePage";
 import ProblemUpdate from "./pages/ProblemUpdatePage";
-import ProblemPage from "./pages/ProblemPage"
 import ProblemInfo from "./pages/ProblemInfo";
 import Dashboard from "./pages/Dashboard";
 import PotdCard from "./pages/POTDCard";
@@ -24,6 +23,8 @@ import LinearSearch from "./pages/LinearSearch";
 import Queue from "./pages/Queue";
 import BinarySearch from "./pages/BinarySearchh";
 import BubbleSort from "./pages/BubbleSort";
+import ProblemDeletePage from "./pages/ProblemDeletePage";
+import AdminDashboard from "./pages/AdminLandingPage";
 function App(){
   
   const dispatch = useDispatch();
@@ -60,7 +61,7 @@ function App(){
       <Route path="/signup" element={isAuthenticated?<Navigate to="/" />:<Signup></Signup>}></Route>
 
       {/* Problems Routes */}
-      <Route path="/problems" element={isAuthenticated?<Problems/>:<Signup></Signup>}></Route>
+      <Route path="/problems" element={isAuthenticated?<Problems/>:<Login></Login>}></Route>
       <Route path="/problem/:problemId" element={isAuthenticated ? <ProblemInfo/>:<Signup></Signup>}></Route>
       <Route path="/potd" element={isAuthenticated ? <PotdCard/>:<Signup></Signup>}></Route>
 
@@ -76,8 +77,10 @@ function App(){
       <Route path='/interview/start' element={isAuthenticated ? <InterviewWithAi/>:<Signup/>}/>
 
       {/* Admin Routes */}
+      <Route path='/admin' element={<AdminDashboard/>}/>
       <Route path='/admin/create' element={isAuthenticated && user?.role === 'admin' ? <ProblemCreate/>: <Signup></Signup>}/>
       <Route path='/admin/update' element={isAuthenticated && user?.role === 'admin' ? <ProblemUpdate/>: <Signup></Signup>}/>
+      <Route path='/admin/delete' element={isAuthenticated && user?.role === 'admin' ? <ProblemDeletePage/>: <Signup></Signup>}/>
 
       {/* DSA Visualizer Routes */}
       <Route path='/stack' element={<Stack/>}/>
