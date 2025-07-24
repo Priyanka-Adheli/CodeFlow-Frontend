@@ -5,12 +5,11 @@ import axiosClient from '../utils/axiosClient';
 import { useNavigate } from 'react-router';
 import { useState } from 'react';
 
-// --- ICONS ---
 import { FiFileText, FiTag, FiGitCommit, FiCode, FiPlus, FiTrash2, FiSend, FiList, FiAlertCircle, FiEye, FiEyeOff } from 'react-icons/fi';
 import { VscLoading } from 'react-icons/vsc';
 
 
-// --- ZOD SCHEMA (Unchanged, but with more specific error messages) ---
+//  ZOD SCHEMA to add the validations to problem 
 const problemSchema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z.string().min(1, "Description is required"),
@@ -39,12 +38,12 @@ const problemSchema = z.object({
 });
 
 
-// --- REUSABLE COMPONENTS (STYLED FOR LIGHT THEME) ---
+//  REUSABLE COMPONENTS
 
 // A styled container for each major section of the form
 const SectionCard = ({ title, icon, children }) => (
-  <div className="bg-white/50 backdrop-blur-xl shadow-lg rounded-xl p-6 mb-8 border border-white/30">
-    <h2 className="text-2xl font-bold mb-5 flex items-center gap-3 text-gray-800">
+  <div className="bg-white/50 backdrop-blur-xl shadow-lg rounded-xl p-6 mb-8 border border-white/30 dark:bg-gray-800 transition duration-300">
+    <h2 className="text-2xl font-bold mb-5 flex items-center gap-3 text-gray-800 dark:text-white">
       {icon} {title}
     </h2>
     <div className="space-y-4">{children}</div>
@@ -57,7 +56,7 @@ const FormField = ({ name, label, register, errors, as = "input", ...props }) =>
     const error = errors[name];
     return (
         <div>
-            <label htmlFor={name} className="block mb-2 text-sm font-medium text-gray-700">{label}</label>
+            <label htmlFor={name} className="block mb-2 text-sm font-medium text-gray-700 dark:text-white">{label}</label>
             <Component
                 id={name}
                 {...register(name)}
@@ -75,7 +74,7 @@ const FormField = ({ name, label, register, errors, as = "input", ...props }) =>
     );
 };
 
-// A much more user-friendly component for selecting multiple tags
+// component for selecting multiple tags
 const TagsInput = ({ control, name, errors }) => {
     const allTags = [
         "Array", "Linked Lists", "Stacks", "Queues", "Hash Maps", "Hash Sets", "Trees", "Binary Search Trees",
@@ -127,7 +126,6 @@ const TagsInput = ({ control, name, errors }) => {
 };
 
 
-// --- MAIN ADMIN PANEL COMPONENT ---
 
 export default function ProblemCreate() {
   const navigate = useNavigate();
@@ -176,10 +174,10 @@ export default function ProblemCreate() {
   };
 
   return (
-    <div className="mt-16 min-h-screen bg-base-200 text-gray-900 px-4 py-10">
+    <div className="mt-16 min-h-screen bg-base-200 text-gray-900 px-4 py-10 dark:bg-gray-900 transition duration-300">
       <div className="max-w-4xl mx-auto">
         <header className="text-center mb-10">
-          <h1 className="text-4xl md:text-5xl font-extrabold">
+          <h1 className="text-4xl md:text-5xl font-extrabold dark:text-white">
             Create New DSA Problem
           </h1>
           <p className="text-lg text-gray-600 mt-2">Fill in the details below to add a new challenge.</p>
@@ -191,7 +189,7 @@ export default function ProblemCreate() {
             <FormField name="title" label="Title" register={register} errors={errors} placeholder="e.g., Two Sum" />
             
             <div>
-              <label htmlFor="difficulty" className="block mb-2 text-sm font-medium text-gray-700">Difficulty</label>
+              <label htmlFor="difficulty" className="block mb-2 text-sm font-medium text-gray-700 dark:text-white">Difficulty</label>
               <select {...register("difficulty")} className={`select select-bordered w-full bg-white text-black ${errors.difficulty ? 'select-error' : ''}`}>
                 <option value="">Select Difficulty</option>
                 <option value="Easy">Easy</option>
@@ -221,7 +219,7 @@ export default function ProblemCreate() {
                   )}
                 </div>
               ))}
-              <button type="button" className="btn btn-outline btn-secondary btn-sm" onClick={() => appendHint("")}>
+              <button type="button" className="btn btn-outline btn-primary btn-sm" onClick={() => appendHint("")}>
                 <FiPlus /> Add Hint
               </button>
           </SectionCard>
@@ -230,7 +228,7 @@ export default function ProblemCreate() {
               <div className="p-4 rounded-lg bg-gray-50/70">
                 <h3 className="font-semibold mb-3 text-lg flex items-center gap-2 text-gray-700"><FiEye /> Visible Test Cases</h3>
                 {visibleFields.map((field, index) => (
-                  <div key={field.id} className="bg-white/60 p-4 rounded-md mb-3 border-l-4 border-accent shadow-sm">
+                  <div key={field.id} className="bg-white/60 p-4 rounded-md mb-3 border-l-4 border-indigo-700 shadow-sm">
                      <div className="flex justify-between items-start">
                         <p className="font-bold text-gray-500 mb-2">Case #{index + 1}</p>
                         <button type="button" onClick={() => removeVisible(index)} className="btn btn-ghost btn-xs text-error"><FiTrash2/></button>
@@ -240,7 +238,7 @@ export default function ProblemCreate() {
                      <FormField as="textarea" name={`visibleTestCases.${index}.explanation`} label="Explanation" register={register} errors={errors.visibleTestCases?.[index] || {}} />
                   </div>
                 ))}
-                <button type="button" onClick={() => appendVisible({ input: "", output: "", explanation: "" })} className="btn btn-outline btn-accent btn-sm">
+                <button type="button" onClick={() => appendVisible({ input: "", output: "", explanation: "" })} className="btn btn-outline btn-indigo btn-sm">
                   <FiPlus /> Add Visible Case
                 </button>
               </div>
@@ -248,7 +246,7 @@ export default function ProblemCreate() {
               <div className="p-4 rounded-lg bg-gray-50/70 mt-4">
                  <h3 className="font-semibold mb-3 text-lg flex items-center gap-2 text-gray-700"><FiEyeOff /> Hidden Test Cases</h3>
                   {hiddenFields.map((field, index) => (
-                    <div key={field.id} className="bg-white/60 p-4 rounded-md mb-3 border-l-4 border-secondary shadow-sm">
+                    <div key={field.id} className="bg-white/60 p-4 rounded-md mb-3 border-l-4 border-primary shadow-sm">
                         <div className="flex justify-between items-start">
                             <p className="font-bold text-gray-500 mb-2">Case #{index + 1}</p>
                             <button type="button" onClick={() => removeHidden(index)} className="btn btn-ghost btn-xs text-error"><FiTrash2/></button>
@@ -257,7 +255,7 @@ export default function ProblemCreate() {
                         <FormField name={`HiddenTestCases.${index}.output`} label="Output" register={register} errors={errors.HiddenTestCases?.[index] || {}} />
                     </div>
                   ))}
-                  <button type="button" onClick={() => appendHidden({ input: "", output: "" })} className="btn btn-outline btn-secondary btn-sm">
+                  <button type="button" onClick={() => appendHidden({ input: "", output: "" })} className="btn btn-outline btn-primary btn-sm">
                     <FiPlus /> Add Hidden Case
                   </button>
               </div>
@@ -266,7 +264,7 @@ export default function ProblemCreate() {
           <SectionCard title="Code Stubs & Solutions" icon={<FiCode />}>
             {['C++', 'Java', 'JavaScript'].map((lang, i) => (
               <div key={lang} className="bg-gray-50/70 p-4 rounded-xl">
-                <h3 className="font-bold text-lg text-accent mb-3">{lang}</h3>
+                <h3 className="font-bold text-lg text-indigo-700 mb-3">{lang}</h3>
                 <FormField
     as="textarea"
     rows={8}
