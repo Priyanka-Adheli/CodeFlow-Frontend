@@ -4,13 +4,11 @@ import { z } from 'zod';
 import axiosClient from '../utils/axiosClient';
 import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
-
-// --- ICONS ---
 import { FiFileText, FiTag, FiGitCommit, FiCode, FiPlus, FiTrash2, FiSend, FiList, FiAlertCircle, FiEye, FiEyeOff } from 'react-icons/fi';
 import { VscLoading } from 'react-icons/vsc';
 
 
-// --- ZOD SCHEMA (Unchanged, but with more specific error messages) ---
+// --- ZOD SCHEMA double validation purpose
 const problemSchema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z.string().min(1, "Description is required"),
@@ -39,12 +37,10 @@ const problemSchema = z.object({
 });
 
 
-// --- REUSABLE COMPONENTS (STYLED FOR LIGHT THEME) ---
-
 // A styled container for each major section of the form
 const SectionCard = ({ title, icon, children }) => (
-  <div className="bg-white/50 backdrop-blur-xl shadow-lg rounded-xl p-6 mb-8 border border-white/30">
-    <h2 className="text-2xl font-bold mb-5 flex items-center gap-3 text-gray-800">
+  <div className="bg-white/50 backdrop-blur-xl shadow-lg rounded-xl p-6 mb-8 border border-white/30 dark:bg-gray-800/90 dark:border-gray-700 transition duration-300">
+    <h2 className="text-2xl font-bold mb-5 flex items-center gap-3 text-gray-800 dark:text-white">
       {icon} {title}
     </h2>
     <div className="space-y-4">{children}</div>
@@ -57,7 +53,7 @@ const FormField = ({ name, label, register, errors, as = "input", ...props }) =>
     const error = errors[name];
     return (
         <div>
-            <label htmlFor={name} className="block mb-2 text-sm font-medium text-gray-700">{label}</label>
+            <label htmlFor={name} className="block mb-2 text-sm font-medium text-gray-700 dark:text-white">{label}</label>
             <Component
                 id={name}
                 {...register(name)}
@@ -197,14 +193,14 @@ export default function ProblemCreate() {
   }
 };
   return(
-    <div className="mt-16 min-h-screen bg-base-200">
+    <div className="mt-16 min-h-screen bg-base-200 dark:bg-gray-900 transition duration-300">
     {isLoading ? (
       <div className="text-center py-10 text-gray-600 text-lg">Loading data...</div>
     ) : problemData ?(
-       <div className="mt-16 min-h-screen bg-base-200 text-gray-900 px-4 py-10">
+       <div className="mt-16 min-h-screen bg-base-200 text-gray-900 px-4 py-10 dark:bg-gray-900 transition duration-300">
             <div className="max-w-4xl mx-auto">
               <header className="text-center mb-10">
-                <h1 className="text-4xl md:text-5xl font-extrabold">
+                <h1 className="text-4xl md:text-5xl font-extrabold dark:text-white">
                   Update DSA Problem
                 </h1>
                 <p className="text-lg text-gray-600 mt-2">Fill in the details below to add a new challenge.</p>
@@ -216,7 +212,7 @@ export default function ProblemCreate() {
                   <FormField name="title" label="Title" register={register} errors={errors} placeholder="e.g., Two Sum" />
                   
                   <div>
-                    <label htmlFor="difficulty" className="block mb-2 text-sm font-medium text-gray-700">Difficulty</label>
+                    <label htmlFor="difficulty" className="block mb-2 text-sm font-medium text-gray-700 dark:text-white">Difficulty</label>
                     <select {...register("difficulty")} className={`select select-bordered w-full bg-white text-black ${errors.difficulty ? 'select-error' : ''}`}>
                       <option value="">Select Difficulty</option>
                       <option value="Easy">Easy</option>
@@ -246,7 +242,7 @@ export default function ProblemCreate() {
                         )}
                       </div>
                     ))}
-                    <button type="button" className="btn btn-outline btn-secondary btn-sm" onClick={() => appendHint("")}>
+                    <button type="button" className="btn btn-outline btn-primary btn-sm" onClick={() => appendHint("")}>
                       <FiPlus /> Add Hint
                     </button>
                 </SectionCard>
@@ -265,7 +261,7 @@ export default function ProblemCreate() {
                            <FormField as="textarea" name={`visibleTestCases.${index}.explanation`} label="Explanation" register={register} errors={errors.visibleTestCases?.[index] || {}} />
                         </div>
                       ))}
-                      <button type="button" onClick={() => appendVisible({ input: "", output: "", explanation: "" })} className="btn btn-outline btn-accent btn-sm">
+                      <button type="button" onClick={() => appendVisible({ input: "", output: "", explanation: "" })} className="btn btn-outline btn-indigo-700 btn-sm">
                         <FiPlus /> Add Visible Case
                       </button>
                     </div>
@@ -282,7 +278,7 @@ export default function ProblemCreate() {
                               <FormField name={`HiddenTestCases.${index}.output`} label="Output" register={register} errors={errors.HiddenTestCases?.[index] || {}} />
                           </div>
                         ))}
-                        <button type="button" onClick={() => appendHidden({ input: "", output: "" })} className="btn btn-outline btn-secondary btn-sm">
+                        <button type="button" onClick={() => appendHidden({ input: "", output: "" })} className="btn btn-outline btn-primary btn-sm">
                           <FiPlus /> Add Hidden Case
                         </button>
                     </div>
@@ -344,7 +340,7 @@ export default function ProblemCreate() {
       onChange={(e) => setProblemId(e.target.value)}
       placeholder="Enter Object Id to Proceed"
     />
-    <button className="btn btn-secondary btn-lg w-full sm:w-auto" onClick={getProblembyIds}>
+    <button className="btn btn-primary btn-lg w-full sm:w-auto" onClick={getProblembyIds}>
       Update Problem
     </button>
   </div>
