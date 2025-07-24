@@ -163,20 +163,21 @@ useEffect(() => {
 }, [foundIndex]);
 
     return(
-      <div className='min-h-screen pt-20 bg-gray-50'>
+      <div className='min-h-screen pt-20 bg-gray-50 dark:bg-gray-900 transition duration-300'>
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-6xl mx-auto'>
                 <div className='space-y-6'>
-                    <div className='p-4 bg-purple-50 rounded-lg border border-purple-200'>
+                    <div className='p-4 bg-purple-50 rounded-lg border border-purple-200 dark:bg-purple-900/200 dark:border-purple-700'>
                     <h2 className='text-xl font-semibold text-purple-700 mb-2'>📝 Linear Search</h2>
-                   <p><strong>🔹 Data Type:</strong> Ordered (Sorted List Required)</p>
-                   <p><strong>🔄 Approach:</strong> Divide & Conquer (Repeatedly Splitting the Search Space in Half)</p>
-                   <p><strong>🚀 Best Feature:</strong> Highly Efficient for Large Datasets (O(log n) time complexity)</p>
-                   <p><strong>⚠️ Drawback:</strong> Requires Sorted Data Before Searching</p>
-                   <p><strong>🌀 Behavior:</strong> Compares Middle Element, Adjusts Search Space Left/Right Until Match is Found</p>
-                   <p><strong>✔️ Used In:</strong> Fast Searching in Sorted Lists, Index Lookups, Search Optimizations in Databases</p>
+                   <p className='dark:text-gray-300'><strong>🔹 Data Type:</strong> Ordered (Sorted List Required)</p>
+                   <p className='dark:text-gray-300'><strong>🔄 Approach:</strong> Divide & Conquer (Repeatedly Splitting the Search Space in Half)</p>
+                   <p className='dark:text-gray-300'><strong>🚀 Best Feature:</strong> Highly Efficient for Large Datasets (O(log n) time complexity)</p>
+                   <p className='dark:text-gray-300'><strong>⚠️ Drawback:</strong> Requires Sorted Data Before Searching</p>
+                   <p className='dark:text-gray-300'><strong>🌀 Behavior:</strong> Compares Middle Element, Adjusts Search Space Left/Right Until Match is Found</p>
+                   <p className='dark:text-gray-300'><strong>✔️ Used In:</strong> Fast Searching in Sorted Lists, Index Lookups, Search Optimizations in Databases</p>
                     </div>
-                    <div className='bg-white rounded-xl shadow-md p-6 border border-gray-200'>
-                        <h2 className='text-2xl font-bold text-center mb-4 text-gray-800'>Binary Search Visualization</h2>
+                    <div className='bg-white rounded-xl shadow-md p-6 border border-gray-200
+                    dark:bg-gray-800 dark:border-gray-700 transition duration-300'>
+                        <h2 className='text-2xl font-bold text-center mb-4 text-gray-800 dark:text-white'>Binary Search Visualization</h2>
                         <div className="mb-6 p-4 bg-gray-50 rounded-lg">
   <h3 className="text-lg font-medium mb-3">Color Legend</h3>
   <div className="grid grid-cols-2 gap-3">
@@ -206,8 +207,9 @@ useEffect(() => {
   ))}
 </div>
                     </div>
-                   <div className='bg-white rounded-xl shadow-md p-6 border border-gray-200'>
-      <h2 className="text-2xl font-bold text-center mb-4 text-gray-800">Binary Search Operations</h2>
+                   <div className='bg-white rounded-xl shadow-md p-6 border border-gray-200
+                   dark:bg-gray-800 dark:border-gray-700 transition duration-300'>
+      <h2 className="text-2xl font-bold text-center mb-4 text-gray-800 dark:text-white">Binary Search Operations</h2>
       <div className='flex justify-start items-center gap-5'>
         <input 
           type="number" 
@@ -242,11 +244,6 @@ useEffect(() => {
       </div>
       
     </div>
-    {/* <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200">
-      {
-      checkElement(array,foundIndex,currentIndex,target)
-      }
-      </div> */}
 <style>
        {`
           @keyframes popUp {
@@ -264,7 +261,7 @@ useEffect(() => {
                 </div>
                 <div className="space-y-6">
   {/* Time Complexity Section */}
-  <div className="flex flex-col gap-5 flex-wrap rounded-md p-5 bg-white shadow-lg">
+  <div className="flex flex-col gap-5 flex-wrap rounded-md p-5 bg-white shadow-lg dark:bg-gray-800 dark:border dark:border-gray-700 transition duration-300">
   <h1 className="text-3xl text-center font-bold text-gray-800 dark:text-white mb-4">
     ⚡ Time Complexity of Binary Search
   </h1>
@@ -307,16 +304,15 @@ useEffect(() => {
   </div>
 
   {/* Summary */}
- <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200">
-    <h2 className="text-2xl font-bold text-center mb-4 text-gray-800">Space Complexity</h2>
-
-  <div className="p-4 bg-purple-50 rounded-lg">
-                <h3 className="font-bold text-purple-800 mb-2">Space Complexity</h3>
-                <div className="flex justify-between">
-                  <span>Memory usage:</span>
-                  <span className="font-mono bg-purple-100 px-2 py-1 rounded">O(N)</span>
-                </div>
-              </div>
+ <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200 dark:bg-gray-800 dark:border-gray-700 transition duration-300">
+    <h2 className="text-2xl font-bold text-center mb-4 text-gray-800 dark:text-white">Space Complexity</h2>
+    <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-800">
+            <h3 className="font-bold text-purple-800 dark:text-purple-300 mb-2">Space Complexity</h3>
+            <div className="flex justify-between">
+              <span className="dark:text-gray-300">Memory usage:</span>
+              <span className="font-mono bg-purple-100 dark:bg-purple-800 text-purple-800 dark:text-purple-100 px-2 py-1 rounded">O(1)</span>
+            </div>
+          </div>
             </div>
  <div className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden">
     <div className="tabs tabs-boxed">
