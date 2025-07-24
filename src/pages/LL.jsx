@@ -157,25 +157,26 @@ class LinkedList {
 };
 
    return (
-      <div className="min-h-screen pt-20 bg-gray-50">
+      <div className="min-h-screen pt-20 bg-gray-50 dark:bg-gray-900 transition duration-300">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-6xl mx-auto">
           {/* Left Column */}
           <div className="space-y-6">
             {/* Node Visualization */}
-             <div className="p-4 bg-purple-50 dark:bg-purple-900 rounded-lg border border-purple-200 dark:border-purple-700">
+             <div className="p-4 bg-purple-5 dark:bg-purple-900/200 rounded-lg border border-purple-200 dark:border-purple-700">
       <h2 className="text-xl font-semibold text-purple-700 dark:text-purple-200 mb-2">📝 Linked List</h2>
-      <p>🔗 <strong>Data Structure Type:</strong> Linear & dynamic</p>
-<p>📌 <strong>Elements:</strong> Nodes containing data & pointers</p>
-<p>↔️ <strong>Traversal:</strong> Sequential access using pointers</p>
-<p>🚀 <strong>Best Feature:</strong> Efficient insertions & deletions (O(1) at head)</p>
-<p>⚠️ <strong>Drawback:</strong> Slow random access (O(n) for searching)</p>
-<p>🌀 <strong>Variants:</strong> Singly, Doubly, Circular Linked Lists</p>
-<p>✔️ <strong>Flexibility:</strong> Dynamic memory allocation, unlike arrays</p>
+      <p className='dark:text-gray-300'> 🔗 <strong>Data Structure Type:</strong> Linear & dynamic</p>
+<p className='dark:text-gray-300'> 📌 <strong>Elements:</strong> Nodes containing data & pointers</p>
+<p className='dark:text-gray-300'>↔️ <strong>Traversal:</strong> Sequential access using pointers</p>
+<p className='dark:text-gray-300'>🚀 <strong>Best Feature:</strong> Efficient insertions & deletions (O(1) at head)</p>
+<p className='dark:text-gray-300'>⚠️ <strong>Drawback:</strong> Slow random access (O(n) for searching)</p>
+<p className='dark:text-gray-300'>🌀 <strong>Variants:</strong> Singly, Doubly, Circular Linked Lists</p>
+<p className='dark:text-gray-300'>✔️ <strong>Flexibility:</strong> Dynamic memory allocation, unlike arrays</p>
     </div>
-            <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200">
+            <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200
+             dark:bg-gray-800 dark:border-gray-700 transition duration-300">
             
-              <h2 className="text-2xl font-bold text-center mb-4 text-gray-800">Linked List Visualization</h2>
-              <div className="min-h-[200px] flex flex-wrap items-center gap-4 justify-center p-4 bg-gray-50 rounded-lg">
+              <h2 className="text-2xl font-bold text-center mb-4 text-gray-800 dark:text-white">Linked List Visualization</h2>
+              <div className="min-h-[200px] flex flex-wrap items-center gap-4 justify-center p-4 bg-gray-50 rounded-lg dark:bg-gray-700">
                 {nodes.map((node, index) => (
                   <div key={node.id} className="flex items-center">
                     <motion.div
@@ -208,8 +209,8 @@ class LinkedList {
   
             {/* Operations */}
             <div className="grid grid-cols-1 gap-6 w-full">
-              <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200">
-                <h3 className="text-xl font-semibold text-center mb-4 text-gray-700 ">Insert at End / Delete from Beginning</h3>
+              <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200 dark:bg-gray-800 dark:border-gray-700 transition duration-300">
+                <h3 className="text-xl font-semibold text-center mb-4 text-gray-700 dark:text-white">Insert at End / Delete from Beginning</h3>
                 <div className="space-y-4">
                   <input
                     type="number"
@@ -236,8 +237,8 @@ class LinkedList {
                 </div>
               </div>
   
-              <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200">
-                <h3 className="text-xl font-semibold text-center mb-4 text-gray-700">Insert at Front / Delete from End</h3>
+              <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200 dark:bg-gray-800 dark:border-gray-700 transition duration-300">
+                <h3 className="text-xl font-semibold text-center mb-4 text-gray-700 dark:text-white">Insert at Front / Delete from End</h3>
                 <div className="space-y-4">
                   <input
                     type="number"
@@ -257,14 +258,14 @@ class LinkedList {
                   </div>
                 </div>
               </div>
-              <div className='bg-white text-center rounded-xl shadow-md p-6 border border-gray-200'>{error || "LinkedList Status"}</div>
+              <div className='bg-white text-center rounded-xl shadow-md p-6 border border-gray-200 dark:bg-gray-800 dark:border-gray-700 dark:text-white transition duration-300'>{error || "LinkedList Status"}</div>
             </div>
           </div>
   
           {/* Right Column */}
           <div className="space-y-6">
     {/* Time Complexity Section */}
-    <div className="flex flex-col gap-5 flex-wrap rounded-md p-5 bg-white shadow-lg">
+    <div className="flex flex-col gap-5 flex-wrap rounded-md p-5 bg-white shadow-lg dark:bg-gray-800 dark:border-gray-700 transition duration-300">
     <h1 className="text-3xl text-center font-bold text-gray-800 dark:text-white mb-4">
       ⚡ Time Complexity of Linked List Operations
     </h1>
@@ -315,16 +316,16 @@ class LinkedList {
     {/* Summary */}
   </div>
   
-     <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200">
-      <h2 className="text-2xl font-bold text-center mb-4 text-gray-800">Space Complexity</h2>
+     <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200 dark:bg-gray-800 dark:border-gray-700 transition duration-300">
+      <h2 className="text-2xl font-bold text-center mb-4 text-gray-800 dark:text-white">Space Complexity</h2>
   
-    <div className="p-4 bg-purple-50 rounded-lg">
-                  <h3 className="font-bold text-purple-800 mb-2">Space Complexity</h3>
-                  <div className="flex justify-between">
-                    <span>Memory usage:</span>
-                    <span className="font-mono bg-purple-100 px-2 py-1 rounded">O(1)</span>
-                  </div>
-                </div>
+    <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-800">
+            <h3 className="font-bold text-purple-800 dark:text-purple-300 mb-2">Space Complexity</h3>
+            <div className="flex justify-between">
+              <span className="dark:text-gray-300">Memory usage:</span>
+              <span className="font-mono bg-purple-100 dark:bg-purple-800 text-purple-800 dark:text-purple-100 px-2 py-1 rounded">O(N)</span>
+            </div>
+          </div>
               </div>
     {/* Code Snippets Section with Tabs */}
     <div className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden">
