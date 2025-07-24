@@ -194,14 +194,14 @@ const ProblemInfo = () =>{
     }
 
     return(
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition duration-300">
+        <div className="min-h-screen bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 transition duration-300">
             {/* Main Content to display problem Info */}
             <div className="mt-14 max-w-8xl mx-auto sm:px-6 lg:px-8 py-6">
                 {/* Two cols problem info , code editor */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
                     {/* Left col */}
-                    <div className="bg-white rounded-lg shadow-md overflow-hidden dark:bg-gray-800 dark:border-gray-700 transition duration-300">
+                 <div className="bg-white rounded-lg shadow-md overflow-hidden dark:bg-gray-800/90 backdrop-blur-xl dark:border dark:border-gray-700 dark:shadow-gray-900/50 transition duration-300">
                         <div className="broder-gray-200">
                             <nav className="flex flex-col sm:flex-row -mb-px">
                                 {[
@@ -410,7 +410,7 @@ const ProblemInfo = () =>{
 
                     {
                         viewCode ? (
-                            <div className="bg-white rounded-lg shadow-md overflow-hidden dark:bg-gray-800 dark:border-none">
+                           <div className="bg-white rounded-lg shadow-md overflow-hidden dark:bg-gray-800/90 backdrop-blur-xl dark:border dark:border-gray-700 dark:shadow-gray-900/50">
                                 <div className="border-b border-gray-200 p-4 dark:border-none">
                                     <div className="h-[80vh] border border-gray-200 rounded-md dark:border-none">
                                         <button onClick={()=> setViewCode(null)}
@@ -443,7 +443,7 @@ const ProblemInfo = () =>{
                         ):(
                             <div className="space-y-4">
                                 {/* Code editor and language selection */}
-                                <div className="bg-white shadow-md overflow-hidden rounded-lg dark:bg-gray-800 transition duration-300">
+                                 <div className="bg-white shadow-md overflow-hidden rounded-lg dark:bg-gray-800/90 backdrop-blur-xl dark:border dark:border-gray-700 dark:shadow-gray-900/50 transition duration-300">
                                     <div className="border-b border-gray-200 p-4">
                                         <div className="flex items-center justify-center">
                                             {isRunning || isSubmitting ?
@@ -554,9 +554,9 @@ Submit
                                             </div>
                                         </div>
                                     ):(
-                                         <div className="bg-white rounded-lg shadow-md overflow-hidden dark:bg-gray-800">
+                                         <div className="bg-white rounded-lg shadow-md overflow-hidden dark:bg-gray-800/90">
     {/* Test case tabs */}
-    <div className="border-b border-gray-200 flex overflow-x-auto dark:border-none">
+        <div className="border-b border-gray-200 flex overflow-x-auto dark:bg-gray-800/90 backdrop-blur-xl dark:border dark:border-gray-700 dark:shadow-gray-900/50">
       {problemData.visibleTestCases.map((testCase, index) => (
         <button
           key={index}
