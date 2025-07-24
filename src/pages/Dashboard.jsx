@@ -7,7 +7,7 @@ import { Tooltip } from "react-tooltip";
 import axiosClient from "../utils/axiosClient";
 import {useNavigate} from "react-router";
 import { logoutUser } from '../authSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { FaCheckDouble,FaFire,FaJava   } from "react-icons/fa";
 import { BiLogoCPlusPlus } from "react-icons/bi";
 import { RiJavascriptFill } from "react-icons/ri";
@@ -21,6 +21,7 @@ function Dashboard() {
   const [leaderboardData,setLeaderBoard] = useState(false);
   const [problemSolvedInfo,setProblemSolvedInfo] = useState(null);
   const [langUsed,setLangUsed] = useState(null);
+  const {user} = useSelector((state)=>state.auth);
 
   let easyPercent,mediumPercent,hardPercent;
   const navigate = useNavigate();
@@ -116,6 +117,11 @@ function Dashboard() {
           <nav className="flex flex-col gap-3">
             <p className='text-md font-bold'>{userData.firstName}</p>
             <p className='text-sm font-bold'>{userData.email}</p>
+            {
+              user?.role=="admin" &&(
+           <button className='btn bg-white transition-transform duration-300 ease-in-out hover:scale-120' onClick={()=>navigate('/admin')}>Admin Actions</button>
+              )
+            }
            <button className='btn bg-white transition-transform duration-300 ease-in-out hover:scale-120' onClick={handleLogout}>Logout</button>
           </nav>
         </div>
