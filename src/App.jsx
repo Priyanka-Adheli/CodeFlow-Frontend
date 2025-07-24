@@ -55,12 +55,12 @@ function App(){
   return(
   <>
     <Routes>
-      <Route path="/" element={isAuthenticated ?<Home></Home>:<Navigate to="/signup" />}></Route>
+      <Route path="/" element={<Home></Home>}></Route>
       <Route path="/login" element={isAuthenticated?<Navigate to="/" />:<Login></Login>}></Route>
       <Route path="/signup" element={isAuthenticated?<Navigate to="/" />:<Signup></Signup>}></Route>
 
       {/* Problems Routes */}
-      <Route path="/problems" element={isAuthenticated?<Problems/>:<Login></Login>}></Route>
+      <Route path="/problems" element={isAuthenticated?<Problems/>:<Signup></Signup>}></Route>
       <Route path="/problem/:problemId" element={isAuthenticated ? <ProblemInfo/>:<Signup></Signup>}></Route>
       <Route path="/potd" element={isAuthenticated ? <PotdCard/>:<Signup></Signup>}></Route>
 
