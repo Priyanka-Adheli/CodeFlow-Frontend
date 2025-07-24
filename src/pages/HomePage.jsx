@@ -101,7 +101,7 @@ return (
             whileHover={{ scale: 1.05 }}
           >
             <h1 className="text-sm bg-gradient-to-r from-indigo-500 to-indigo-700 text-white font-semibold mb-6 border rounded-full w-fit px-8 py-1 flex items-center gap-2 shadow-sm dark:border-gray-800">
-              <BsStars className="h-5 w-5 mt-0.5" />
+              <BsStars className="h-5 w-5" />
               AI Powered Platform
             </h1>
           </motion.div>
