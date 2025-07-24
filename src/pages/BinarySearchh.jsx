@@ -167,7 +167,7 @@ useEffect(() => {
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-6xl mx-auto'>
                 <div className='space-y-6'>
                     <div className='p-4 bg-purple-50 rounded-lg border border-purple-200 dark:bg-purple-900/200 dark:border-purple-700'>
-                    <h2 className='text-xl font-semibold text-purple-700 mb-2'>📝 Linear Search</h2>
+                    <h2 className='text-xl font-semibold text-purple-700 mb-2'>📝 Binary Search</h2>
                    <p className='dark:text-gray-300'><strong>🔹 Data Type:</strong> Ordered (Sorted List Required)</p>
                    <p className='dark:text-gray-300'><strong>🔄 Approach:</strong> Divide & Conquer (Repeatedly Splitting the Search Space in Half)</p>
                    <p className='dark:text-gray-300'><strong>🚀 Best Feature:</strong> Highly Efficient for Large Datasets (O(log n) time complexity)</p>
@@ -267,25 +267,24 @@ useEffect(() => {
   </h1>
 
   <div className="grid grid-cols-1 gap-4">
-    {/* Insertion */}
     <div className="p-4 bg-green-50 dark:bg-green-900 rounded-lg border border-green-200 dark:border-green-700">
       <h2 className="text-xl font-semibold text-green-700 dark:text-green-200 mb-2">Best Case</h2>
       <ul className="space-y-2">
         <li className="flex items-start">
           <span className="bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-100 px-2 py-1 rounded mr-2">O(1)</span>
-          <span className="text-gray-700 dark:text-gray-300"><strong> First Element of Array: </strong>Accessed using arr[0]</span>
+          <span className="text-gray-700 dark:text-gray-300"><strong>The target is found at the middle element on the first check </strong>O(1)</span>
           </li>
       </ul>
     </div>
 
-    {/* Deletion */}
+   
     <div className="p-4 bg-blue-50 dark:bg-blue-900 rounded-lg border border-blue-200 dark:border-blue-700">
       <h2 className="text-xl font-semibold text-blue-700 dark:text-blue-200 mb-2">Average Case</h2>
       <ul className="space-y-2">
         <li className="flex items-start">
-          <span className="bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-100 px-2 py-1 rounded mr-2">O(N)
+          <span className="bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-100 px-2 py-1 rounded mr-2">O(logN)
 </span>
-          <span className="text-gray-700 dark:text-gray-300"><strong>Element somewhere middle of array</strong></span>
+          <span className="text-gray-700 dark:text-gray-300"><strong>The search space is halved each time, finding the element in log₂N steps</strong></span>
         </li>
 
       </ul>
@@ -294,9 +293,9 @@ useEffect(() => {
       <h2 className="text-xl font-semibold text-red-700 dark:text-red-200 mb-2">Worst case</h2>
       <ul className="space-y-2">
         <li className="flex items-start">
-          <span className="bg-red-100 dark:bg-red-800 text-red-800 dark:text-red-100 px-2 py-1 rounded mr-2">O(N)
+          <span className="bg-red-100 dark:bg-red-800 text-red-800 dark:text-red-100 px-2 py-1 rounded mr-2">O(logN)
 </span>
-          <span className="text-gray-700 dark:text-gray-300"><strong>Last Element</strong></span>
+          <span className="text-gray-700 dark:text-gray-300"><strong>Even in the worst case, it keeps dividing the array, making log₂N comparisons</strong></span>
 </li>
       </ul>
     </div>
