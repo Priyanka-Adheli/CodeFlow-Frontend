@@ -89,20 +89,22 @@ const Queue = () =>{
         },500);
     }
     return(
-        <div className='min-h-screen pt-20 bg-gray-50'>
+        <div className='min-h-screen pt-20 bg-gray-50 dark:bg-gray-900 transition duration-300'>
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-6xl mx-auto'>
                 <div className='space-y-6'>
-                    <div className='p-4 bg-purple-50 rounded-lg border border-purple-200'>
-                        <h2 className='text-xl font-semibold text-purple-700 mb-2'>📝 Queue</h2>
-                     <p><strong>🔹 Data Type:</strong> Linear</p><p><strong>🔄 Approach:</strong> First In, First Out (LIFO)</p>
-                     <p><strong>🚀 Best Feature:</strong> Efficient for managing function calls & undo operations</p>
-                     <p><strong>⚠️ Drawback:</strong> Limited direct access to elements</p>
-                     <p><strong>🌀 Behavior:</strong> Push to add, Pop to remove from the top</p>
-                     <p><strong>✔️ Used In:</strong> Recursion, Expression Evaluation, Backtracking</p>
+                    <div className='p-4 bg-purple-50 dark:bg-purple-900/200 rounded-lg border border-purple-200 dark:border-purple-700'>
+                        <h2 className='text-xl font-semibold text-purple-700 mb-2 dark:text-white'>📝 Queue</h2>
+                     <p className='dark:text-gray-300'><strong>🔹 Data Type:</strong> Linear</p>
+                     <p className='dark:text-gray-300'><strong>🔄 Approach:</strong> First In, First Out (LIFO)</p>
+                     <p className='dark:text-gray-300'><strong>🚀 Best Feature:</strong> Efficient for managing function calls & undo operations</p>
+                     <p className='dark:text-gray-300'><strong>⚠️ Drawback:</strong> Limited direct access to elements</p>
+                     <p className='dark:text-gray-300'><strong>🌀 Behavior:</strong> Push to add, Pop to remove from the top</p>
+                     <p className='dark:text-gray-300'><strong>✔️ Used In:</strong> Recursion, Expression Evaluation, Backtracking</p>
                     </div>
-                    <div className='bg-white rounded-xl shadow-md p-6 border border-gray-200'>
-                        <h2 className='text-2xl font-bold text-center mb-4 text-gray-800'>Queue Visualizer</h2>
-                    <div className="min-h-[100px] w-auto flex items-center gap-4 justify-start p-4 bg-gray-50 border border-gray-50 rounded-md">
+                    <div className='bg-white rounded-xl shadow-md p-6 border border-gray-200
+                     dark:bg-gray-800 dark:border-gray-700 transition duration-300'>
+                        <h2 className='text-2xl font-bold text-center mb-4 text-gray-800 dark:text-white'>Queue Visualizer</h2>
+                    <div className="min-h-[100px] w-auto flex items-center gap-4 justify-start p-4 bg-gray-50 border border-gray-50 rounded-md dark:bg-gray-700">
   {divs.map((div) => (
     <div 
       key={div.id} 
@@ -113,8 +115,9 @@ const Queue = () =>{
   ))}
 </div>
                     </div>
-                    <div className='bg-white rounded-xl shadow-md p-6 border border-gray-200'>
-                         <h2 className="text-2xl font-bold text-center mb-4 text-gray-800">Queue Operations</h2>
+                    <div className='bg-white rounded-xl shadow-md p-6 border border-gray-200
+                    dark:bg-gray-800 dark:border-gray-700 transition duration-300'>
+                         <h2 className="text-2xl font-bold text-center mb-4 text-gray-800 dark:text-white">Queue Operations</h2>
                         <input type='number' placeholder='Enter Value' className='input input-bordered w-full' value={val} onChange={(e)=>setVal(e.target.value)}/>
                         
                         <div className='flex justify-center items-center'>
@@ -138,16 +141,16 @@ const Queue = () =>{
 </div>
 {
   showFront && (
-<div className="text-center font-semibold">{divs.length>0?`Front Element of Queue ${divs[0].value}`:`Queue is Empty`}</div>
+<div className="text-center font-semibold dark:text-white">{divs.length>0?`Front Element of Queue ${divs[0].value}`:`Queue is Empty`}</div>
   )
 }
 {
   showRear && (
-<div className="text-center font-semibold">{divs.length>0?`Rear Element of Queue ${divs[divs.length-1].value}`:`Queue is Empty`}</div>
+<div className="text-center font-semibold dark:text-white">{divs.length>0?`Rear Element of Queue ${divs[divs.length-1].value}`:`Queue is Empty`}</div>
   )
 }
 </div>
-<div className='bg-white rounded-xl shadow-md p-6 border border-gray-200'>{error || "Queue Info Status"}</div>
+<div className='bg-white rounded-xl shadow-md p-6 border border-gray-200 dark:text-white dark:bg-gray-800 dark:border-gray-700 transition duration-300'>{error || "Queue Info Status"}</div>
 <style>
        {`
           @keyframes popUp {
@@ -165,7 +168,8 @@ const Queue = () =>{
                 </div>
                 <div className="space-y-6">
   {/* Time Complexity Section */}
-  <div className="flex flex-col gap-5 flex-wrap rounded-md p-5 bg-white shadow-lg">
+  <div className="flex flex-col gap-5 flex-wrap rounded-md p-5 bg-white shadow-lg
+   dark:bg-gray-800 dark:border dark:border-gray-700 transition duration-300">
   <h1 className="text-3xl text-center font-bold text-gray-800 dark:text-white mb-4">
     ⚡ Time Complexity of Queue Operations
   </h1>
@@ -212,17 +216,17 @@ const Queue = () =>{
   </div>
 
   {/* Summary */}
- <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200">
-    <h2 className="text-2xl font-bold text-center mb-4 text-gray-800">Space Complexity</h2>
-
-  <div className="p-4 bg-purple-50 rounded-lg">
-                <h3 className="font-bold text-purple-800 mb-2">Space Complexity</h3>
-                <div className="flex justify-between">
-                  <span>Memory usage:</span>
-                  <span className="font-mono bg-purple-100 px-2 py-1 rounded">O(N)</span>
-                </div>
-              </div>
+ <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200
+ dark:bg-gray-800 dark:border dark:border-gray-700 transition duration-300">
+    <h2 className="text-2xl font-bold text-center mb-4 text-gray-800 dark:text-white">Space Complexity</h2>
+    <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-800">
+            <h3 className="font-bold text-purple-800 dark:text-purple-300 mb-2">Space Complexity</h3>
+            <div className="flex justify-between">
+              <span className="dark:text-gray-300">Memory usage:</span>
+              <span className="font-mono bg-purple-100 dark:bg-purple-800 text-purple-800 dark:text-purple-100 px-2 py-1 rounded">O(N)</span>
             </div>
+          </div>
+          </div>
  <div className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden">
     <div className="tabs tabs-boxed">
     <button className={`tab ${selectedLanguage === "cpp" ? "tab-active" : ""}`} onClick={() => setSelectedLanguage("cpp")}>C++</button>
