@@ -281,7 +281,7 @@ return (
               <button className="mt-4 mr-4 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded transition-colors">
                 Run Code
               </button>
-              <button className="mt-4 bg-white border border-indigo-600 hover:border-indigo-700 font-medium py-2 px-4 rounded transition-colors dark:text-white text-black">
+              <button className="mt-4 bg-white border border-indigo-600 hover:border-indigo-700 font-medium py-2 px-4 rounded transition-colors text-black">
                 Submit Code
               </button>
               </div>
