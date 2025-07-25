@@ -59,7 +59,7 @@ function ChatAi({problem}) {
             </div>
             <form 
                 onSubmit={handleSubmit(onSubmit)} 
-                className="sticky bottom-0 p-4 bg-base-100 border-t border-[#001f54]"
+                className="sticky bottom-0 p-4 bg-base-100 border-t border-[#001f54] dark:bg-gray-800"
             >
                 <div className="flex items-center">
                     <input 
