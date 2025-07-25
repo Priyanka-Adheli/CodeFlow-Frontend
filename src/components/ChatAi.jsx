@@ -72,7 +72,7 @@ function ChatAi({problem}) {
                         className="btn btn-ghost ml-2"
                         disabled={errors.message}
                     >
-                        <Send className='text-[#001f54] dark:text-white' size={20} />
+                        <Send className='text-[#001f54] dark:text-white dark:hover:text-black' size={20} />
                     </button>
                 </div>
             </form>
