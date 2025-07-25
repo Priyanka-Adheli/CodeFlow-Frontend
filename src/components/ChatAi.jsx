@@ -61,7 +61,7 @@ function ChatAi({problem}) {
                 onSubmit={handleSubmit(onSubmit)} 
                 className="sticky bottom-0 p-4 bg-base-100 border-t border-[#001f54]"
             >
-                <div className="flex items-center">
+                <div className="flex items-center dark:bg-gray-800">
                     <input 
                         placeholder="Ask me anything" 
                         className="input input-bordered flex-1" 
