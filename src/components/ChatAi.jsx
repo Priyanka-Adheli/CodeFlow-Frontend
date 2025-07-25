@@ -43,7 +43,7 @@ function ChatAi({problem}) {
     };
 
     return (
-        <div className="mt-4 flex flex-col h-[75vh] relative">
+        <div className="mt-4 flex flex-col h-[75vh] relative dark:bg-gray-800">
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
                 {messages.map((msg, index) => (
                     <div 
@@ -61,7 +61,7 @@ function ChatAi({problem}) {
                 onSubmit={handleSubmit(onSubmit)} 
                 className="sticky bottom-0 p-4 bg-base-100 border-t border-[#001f54]"
             >
-                <div className="flex items-center dark:bg-gray-800">
+                <div className="flex items-center">
                     <input 
                         placeholder="Ask me anything" 
                         className="input input-bordered flex-1" 
