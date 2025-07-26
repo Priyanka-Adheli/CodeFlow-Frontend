@@ -1,3 +1,4 @@
+
 import React,{useState,useEffect} from 'react';
 import CalendarHeatmap from "react-calendar-heatmap";
 import { format, parseISO } from "date-fns";
@@ -8,12 +9,40 @@ import axiosClient from "../utils/axiosClient";
 import {useNavigate} from "react-router";
 import { logoutUser } from '../authSlice';
 import { useDispatch,useSelector } from 'react-redux';
-import { FaCheckDouble,FaFire,FaJava   } from "react-icons/fa";
+import { FaCheckDouble,FaFire,FaJava,FaUniversity,FaEdit } from "react-icons/fa";
 import { BiLogoCPlusPlus } from "react-icons/bi";
 import { RiJavascriptFill } from "react-icons/ri";
 import { FaCode } from "react-icons/fa6";
+import { delUser } from '../authSlice';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+// Zod Schema for validation
+const profileSchema = z.object({
+  firstName: z.string()
+  .min(3, "First name must be at least 20 characters")
+  .max(20, "First name cannot exceed 50 characters"),
+  lastName: z.string()
+  .min(3, "Last name must be at least 20 characters")
+  .max(20, "Last name cannot exceed 50 characters"),
+  email: z.string().email("Invalid email"),
+  age: z.coerce.number().min(18, "Must be at least 18"),
+  collegeName: z.string()
+    .min(20, "College name must be at least 20 characters")
+    .max(50, "College name cannot exceed 50 characters"),
+});
 
 function Dashboard() {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: zodResolver(profileSchema),
+  });
+
   const [heatmapData, setHeatmapData] = useState([]);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -21,12 +50,41 @@ function Dashboard() {
   const [leaderboardData,setLeaderBoard] = useState(false);
   const [problemSolvedInfo,setProblemSolvedInfo] = useState(null);
   const [langUsed,setLangUsed] = useState(null);
+  const [showEditProfile,setShowEditProfile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [apiError, setApiError] = useState("");
 
   const {user} = useSelector((state)=>state.auth);
   let easyPercent,mediumPercent,hardPercent;
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  // // Fetch profile data from API
+  const fetchProfile = async () => {
+    setIsLoading(true);
+    setApiError("");
+    try {
+      reset(userData);
+    } catch (err) {
+      setApiError("Failed to load profile data");
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Update profile data
+  const updateProfile = async (data) => {
+    try {
+      const response = await axiosClient.put("/user/updateProfile", data);
+      console.log(response.data);
+      console.log("Profile Updated Successfully");
+      setShowEditProfile(false); // Close modal on success
+    } catch (err) {
+      setApiError("Failed to update profile");
+      console.error(err);
+    }
+  };
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -86,6 +144,11 @@ function Dashboard() {
 
     fetchProblemSolvedInfo();
   }, []);
+
+  // useEffect(() => {
+  //   if (showEditProfile) fetchProfile();
+  // }, [showEditProfile]);
+
   if (loading  || !userData ) {
     return (
       <div className="min-h-screen bg-gray-50 flex justify-center items-center">
@@ -108,21 +171,145 @@ function Dashboard() {
   const handleLogout =  () =>{
     dispatch(logoutUser());
   }
+  const handleDelProfile = () =>{
+    const delProfile = window.confirm("Are you sure you want to delete your profile?");
+    if(delProfile)
+    dispatch(delUser());
+
+  }
+  const handleEditProfile = () =>{
+    setShowEditProfile(true);
+    fetchProfile();
+  }
   return (
     <div className="mt-16 bg-base-200 text-gray-800 font-sans min-h-screen flex flex-col lg:flex-row dark:bg-gray-900 transition duration-300">
+       {showEditProfile && (
+        <dialog open className="modal">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg">Edit Profile</h3>
+            
+            {apiError && (
+              <div className="alert alert-error mt-4">
+                <span>{apiError}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit(updateProfile)} className="mt-4 space-y-4">
+              <div>
+                <label className="label">
+                  <span className="label-text">First Name</span>
+                </label>
+                <input
+                  {...register("firstName")}
+                  type="text"
+                  className="input input-bordered w-full"
+                  disabled={isLoading}
+                />
+                {errors.firstName && (
+                  <p className="text-error mt-1">{errors.firstName.message}</p>
+                )}
+              </div>
+              <div>
+                <label className="label">
+                  <span className="label-text">Last Name</span>
+                </label>
+                <input
+                  {...register("lastName")}
+                  type="text"
+                  className="input input-bordered w-full"
+                  disabled={isLoading}
+                />
+                {errors.lastName && (
+                  <p className="text-error mt-1">{errors.lastName.message}</p>
+                )}
+              </div>
+
+              <div>
+                <label className="label">
+                  <span className="label-text">Email</span>
+                </label>
+                <input
+                  {...register("email")}
+                  type="email"
+                  className="input input-bordered w-full"
+                  disabled={isLoading} readOnly
+                />
+                {errors.email && (
+                  <p className="text-error mt-1">{errors.email.message}</p>
+                )}
+              </div>
+
+              <div>
+                <label className="label">
+                  <span className="label-text">Age</span>
+                </label>
+                <input
+                  {...register("age")}
+                  type="number"
+                  className="input input-bordered w-full"
+                  disabled={isLoading}
+                />
+                {errors.age && (
+                  <p className="text-error mt-1">{errors.age.message}</p>
+                )}
+              </div>
+
+               <div>
+                <label className="label">
+                  <span className="label-text">College Name</span>
+                </label>
+                <input
+                  {...register("collegeName")}
+                  type="text"
+                  className="input input-bordered w-full"
+                  disabled={isLoading}
+                />
+                {errors.collegeName && (
+                  <p className="text-error mt-1">{errors.collegeName.message}</p>
+                )}
+              </div>
+              <div className="modal-action">
+                <button
+                  type="button"
+                  onClick={() => setShowEditProfile(false)}
+                  className="btn"
+                  disabled={isSubmitting}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  disabled={isSubmitting || isLoading}
+                >
+                  {isSubmitting ? "Saving..." : "Update Profile"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </dialog>
+      )}
       {/* ===== SIDEBAR ===== */}
       <aside className="w-full lg:w-72 shrink-0 p-4 lg:p-6">
         <div className="h-full bg-indigo-700 text-white p-6 shadow-lg rounded-2xl">
           <h1 className="text-2xl font-bold text-white mb-10">CodeFlow</h1>
           <nav className="flex flex-col gap-3">
-            <p className='text-md font-bold'>{userData.firstName}</p>
+            <p className='text-md font-bold text-center'>{userData.firstName} {userData.lastName || ''}</p>
+           {userData.collegeName && (
+              <p className='text-md font-bold flex items-center gap-2'>
+                <FaUniversity className='h-8 w-8'/>
+                {userData.collegeName}
+              </p>
+            )}
             <p className='text-sm font-bold'>{userData.email}</p>
             {
               user?.role=="admin" &&(
            <button className='btn bg-white transition-transform duration-300 ease-in-out hover:scale-120' onClick={()=>navigate('/admin')}>Admin Actions</button>
               )
             }
+           <button className='btn bg-white transition-transform duration-300 ease-in-out hover:scale-120' onClick={handleEditProfile}><FaEdit/>Edit Profile</button>
            <button className='btn bg-white transition-transform duration-300 ease-in-out hover:scale-120' onClick={handleLogout}>Logout</button>
+           <button className='btn bg-red-500 border border-none text-white transition-transform duration-300 ease-in-out hover:scale-120' onClick={handleDelProfile}>Delete Profile</button>
           </nav>
         </div>
       </aside>
