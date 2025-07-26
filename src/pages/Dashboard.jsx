@@ -12,7 +12,6 @@ import { FaCheckDouble,FaFire,FaJava   } from "react-icons/fa";
 import { BiLogoCPlusPlus } from "react-icons/bi";
 import { RiJavascriptFill } from "react-icons/ri";
 import { FaCode } from "react-icons/fa6";
-import { delUser } from '../authSlice';
 
 function Dashboard() {
   const [heatmapData, setHeatmapData] = useState([]);
