@@ -108,11 +108,6 @@ function Dashboard() {
   const handleLogout =  () =>{
     dispatch(logoutUser());
   }
-  const handleDelProfile = () =>{
-    const delProfile = window.confirm("Are you sure you want to delete your profile?");
-    if(delProfile)
-    dispatch(delUser());
-  }
   return (
     <div className="mt-16 bg-base-200 text-gray-800 font-sans min-h-screen flex flex-col lg:flex-row dark:bg-gray-900 transition duration-300">
       {/* ===== SIDEBAR ===== */}
@@ -129,7 +124,6 @@ function Dashboard() {
             }
            <button className='btn bg-white transition-transform duration-300 ease-in-out hover:scale-120' onClick={()=> setShowEditProfile(true)}>Edit Profile</button>
            <button className='btn bg-white transition-transform duration-300 ease-in-out hover:scale-120' onClick={handleLogout}>Logout</button>
-           <button className='btn bg-red-500 border border-none text-white transition-transform duration-300 ease-in-out hover:scale-120' onClick={handleDelProfile}>Delete Profile</button>
           </nav>
         </div>
       </aside>
