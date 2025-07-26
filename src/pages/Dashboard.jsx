@@ -9,7 +9,6 @@ import {useNavigate} from "react-router";
 import { logoutUser } from '../authSlice';
 import { useDispatch,useSelector } from 'react-redux';
 import { FaCheckDouble,FaFire,FaJava,FaUniversity,FaEdit } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
 import { BiLogoCPlusPlus } from "react-icons/bi";
 import { RiJavascriptFill } from "react-icons/ri";
 import { FaCode } from "react-icons/fa6";
