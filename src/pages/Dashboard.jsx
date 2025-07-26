@@ -122,7 +122,6 @@ function Dashboard() {
            <button className='btn bg-white transition-transform duration-300 ease-in-out hover:scale-120' onClick={()=>navigate('/admin')}>Admin Actions</button>
               )
             }
-           <button className='btn bg-white transition-transform duration-300 ease-in-out hover:scale-120' onClick={()=> setShowEditProfile(true)}>Edit Profile</button>
            <button className='btn bg-white transition-transform duration-300 ease-in-out hover:scale-120' onClick={handleLogout}>Logout</button>
           </nav>
         </div>
