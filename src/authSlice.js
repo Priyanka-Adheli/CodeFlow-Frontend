@@ -1,3 +1,4 @@
+
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axiosClient from './utils/axiosClient'
 
@@ -46,6 +47,19 @@ export const logoutUser = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       await axiosClient.get('/user/logout');
+      return null;
+    } catch (error) {
+      const message = error.response?.data?.error || "Something went wrong";
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const delUser = createAsyncThunk(
+  'auth/delUser',
+  async (_, { rejectWithValue }) => {
+    try {
+      await axiosClient.delete('/user/deleteProfile');
       return null;
     } catch (error) {
       const message = error.response?.data?.error || "Something went wrong";
@@ -129,6 +143,24 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(logoutUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload?.message || 'Something went wrong';
+        state.isAuthenticated = false;
+        state.user = null;
+      })
+
+      // delete User Profile cases
+      .addCase(delUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(delUser.fulfilled, (state) => {
+        state.loading = false;
+        state.user = null;
+        state.isAuthenticated = false;
+        state.error = null;
+      })
+      .addCase(delUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload?.message || 'Something went wrong';
         state.isAuthenticated = false;
