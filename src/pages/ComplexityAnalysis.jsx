@@ -5,6 +5,7 @@ import { Send } from "lucide-react";
 import Markdown from "react-markdown";
 
 function ComplexityAnalysis() {
+  //function for typing effect + applying the markdown
   function TypingMarkdown({ text }) {
     const [displayedText, setDisplayedText] = useState('');
   
@@ -25,6 +26,8 @@ function ComplexityAnalysis() {
       </Markdown>
     );
   }
+
+  // initial Context
   const [messages, setMessages] = useState([
     {
       role: "model",
@@ -55,6 +58,7 @@ function ComplexityAnalysis() {
     reset();
 
     try {
+      // Hitting the api endpoint
       const response = await axiosClient.post("ai/analyzeComplexity", {
         messages: messages,
         text: data.message,
