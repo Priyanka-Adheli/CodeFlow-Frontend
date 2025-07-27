@@ -32,7 +32,9 @@ const profileSchema = z.object({
     .min(20, "College name must be at least 20 characters")
     .max(50, "College name cannot exceed 50 characters"),
 });
-
+const currentYear = new Date().getFullYear();
+const startDateString = `${currentYear}-01-01`;
+const endDateString = `${currentYear}-12-31`;
 function Dashboard() {
   const {
     register,
@@ -329,14 +331,14 @@ function Dashboard() {
           <div className="lg:col-span-2 space-y-6">
             {/* Heatmap */}
             <div className="card bg-white/50 backdrop-blur-xl shadow-md p-4 sm:p-6 rounded-2xl dark:bg-gray-800 dark:border-gray-700 transition duration-300">
-              <h3 className="text-lg text-indigo-800 font-semibold mb-4 dark:text-white">Contribution Calendar</h3>
+              <h3 className="text-lg text-indigo-800 font-semibold mb-4 dark:text-white">Contribution Calendar {currentYear}</h3>
                               {heatmapData.length === 0 ? (
   <p className="text-sm text-gray-500 text-center">No activity yet.</p>
 ) :(
               <div className="overflow-x-auto">
                 <CalendarHeatmap
-                  startDate={new Date("2025-01-01")}
-                  endDate={new Date("2025-12-31")}
+                   startDate={startDateString}
+                  endDate={endDateString}
                   values={heatmapData}
                   showWeekdayLabels={true}
                   classForValue={(value) => {
