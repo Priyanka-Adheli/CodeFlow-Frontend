@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import axiosClient from '../utils/axiosClient';
 import { useNavigate } from 'react-router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FiFileText, FiTag, FiGitCommit, FiCode, FiPlus, FiTrash2, FiSend, FiList, FiAlertCircle, FiEye, FiEyeOff } from 'react-icons/fi';
 import { VscLoading } from 'react-icons/vsc';
 
