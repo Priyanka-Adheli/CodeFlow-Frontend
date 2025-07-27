@@ -6,7 +6,9 @@ import { FaFileAlt } from 'react-icons/fa';
 function AIInterviewBot() {
     const [chatInterviews,setChatInterviews] = useState(null);
     const [loading,setLoading] = useState(null);
-    const navigate = useNavigate();
+    const navigate = useNavigate(); // for navigation purpose
+    
+    // API Endpoint for fetching all the previous DSA Topic Interviews
     useEffect(()=>{
         const fetchAllInterviews = async() =>{
             try{
@@ -45,7 +47,7 @@ function AIInterviewBot() {
     }
 return (
   <div className="mt-16 min-h-screen bg-gray-50 dark:bg-gray-900 px-4 py-8 transition duration-300">
-    {/* CTA Button */}
+    {/* Button */}
     <div className="flex justify-center mb-8">
       <button 
         className="bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-600 text-white font-semibold py-3 px-8 rounded-lg shadow-lg transition transform hover:scale-105 active:scale-95"
