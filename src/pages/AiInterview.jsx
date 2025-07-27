@@ -1,8 +1,8 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axiosClient from "../utils/axiosClient";
 import { useNavigate } from "react-router";
 import { GoClockFill } from "react-icons/go";
-import { FaFileAlt } from 'react-icons/fa'; // Similar document icon
+import { FaFileAlt } from 'react-icons/fa';
 function AIInterviewBot() {
     const [chatInterviews,setChatInterviews] = useState(null);
     const [loading,setLoading] = useState(null);
@@ -55,7 +55,23 @@ return (
         <span className="ml-2">🚀</span>
       </button>
     </div>
-
+     <div className="max-w-4xl mx-auto mb-8 p-4 bg-indigo-50/50 dark:bg-indigo-900/20 rounded-lg border border-indigo-100 dark:border-indigo-800/50">
+      <div className="flex items-start">
+        <div className="flex-shrink-0 pt-0.5">
+          <svg className="w-5 h-5 text-indigo-500 dark:text-indigo-400" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z" clipRule="evenodd" />
+          </svg>
+        </div>
+        <div className="ml-3">
+          <h3 className="text-sm font-medium text-indigo-800 dark:text-indigo-200">Interview Notes</h3>
+          <div className="mt-1 text-sm text-indigo-700 dark:text-indigo-300 space-y-1">
+            <p>• If an Interview Resume appears, it must be completed.</p>
+            <p>• New interviews begin from a random DSA topic.</p>
+            <p>• You can view previous sessions in the AI Interview tab under Interview History.</p>
+          </div>
+        </div>
+      </div>
+    </div>
     {/* Interview Cards */}
     <h1 className="text-3xl text-indigo-600 dark:text-indigo-400 p-4 text-center font-bold mb-6">
       <span className="relative">
