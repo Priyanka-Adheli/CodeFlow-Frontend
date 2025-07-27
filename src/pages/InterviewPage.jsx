@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axiosClient from '../utils/axiosClient';
 import Markdown from 'react-markdown';
-import { TypeAnimation } from 'react-type-animation';
-
 const InterviewPage = () => {
   const [chat, setChat] = useState([]);
   const [topic,setTopic] = useState('');
@@ -13,7 +11,7 @@ const InterviewPage = () => {
   useEffect(() => {
     const fetchLastChat = async () => {
       try {
-        const res = await axiosClient.get('/ai/history'); // <- new API
+        const res = await axiosClient.get('/ai/history'); 
         console.log(res.data);
         const messages = res.data.messages || [];
         setTopic(res.data.topic);
@@ -75,11 +73,30 @@ const InterviewPage = () => {
       sendMessage();
     }
   };
+function TypingMarkdown({ text }) {
+  const [displayedText, setDisplayedText] = useState('');
+
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      setDisplayedText((prev) => prev + text[index]);
+      index++;
+      if (index >= text.length) clearInterval(interval);
+    }, 20); // Adjust speed here
+
+    return () => clearInterval(interval);
+  }, [text]);
 
   return (
+    <Markdown>
+      {displayedText}
+    </Markdown>
+  );
+}
+  return (
     <div className='mt-16 h-screen dark:bg-gray-900 transition duration-300'>
-        <h1 className='text-3xl text-indigo-600 font-bold text-center p-4'>Interview on Topic {topic}</h1>
-    <div className="max-w-7xl mx-auto p-4 h-[80vh] flex flex-col rounded-lg shadow-lg border border-indigo-100 dark:bg-gray-800 dark:border-gray-700 transition duration-300">
+        <h1 className='text-3xl text-indigo-600 font-bold text-center p-4'>Interview on DSA Topic {topic}</h1>
+      <div className="max-w-7xl mx-auto p-4 h-[80vh] flex flex-col rounded-lg shadow-lg border border-indigo-100 dark:bg-gray-800 dark:border-gray-700 transition duration-300">
       <div className="flex-1 overflow-y-auto mb-4 p-4 space-y-2">
         {chat.map((msg, idx) => (
           <div
@@ -89,14 +106,7 @@ const InterviewPage = () => {
             }`}
           >
             {msg.role === 'model' && idx === chat.length - 1 ? (
-              
-              <TypeAnimation
-                sequence={[msg.text]}
-                speed={50}
-                wrapper="span"
-                style={{ whiteSpace: 'pre-wrap' }}
-                omitDeletionAnimation
-              />
+             <TypingMarkdown text={msg.text} />
             ) : (
               <Markdown>{msg.text}</Markdown>
             )}
