@@ -62,8 +62,28 @@ const Problems = () => {
   const [solvedProblems, setSolvedProblems] = useState([]);
   const [difficultyFilter, setDifficultyFilter] = useState("");
   const [selectedTopics, setSelectedTopics] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
+  // Filter logic
+  const filteredProblems = problems.filter(problem => {
+    // Filter by difficulty
+    const levelMatch = difficultyFilter ? problem.difficulty === difficultyFilter : true;
+    
+    // Filter by tags (all selected tags must be present)
+    const topicMatch = selectedTopics.length > 0 
+      ? selectedTopics.every(tag => problem.tags.includes(tag))
+      : true;
+    
+    return levelMatch && topicMatch;
+  });
 
+  // Pagination calculations
+  const totalPages = Math.ceil(filteredProblems.length / itemsPerPage);
+  const paginatedProblems = filteredProblems.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 const allTopics = [
   "Arrays", "Linked Lists", "Stacks", "Queues", "Hash Maps", "Hash Sets",
   "Trees", "Binary Search Trees", "Heaps", "Graphs", "Recursion",
@@ -224,110 +244,151 @@ return (
           </div>
           <PotdCard/>
           {/* Problems List */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="card p-4 sm:p-6 bg-white/60 dark:bg-gray-800/90 backdrop-blur-xl border border-[#D1E5E4] dark:border-gray-700 shadow-xl dark:shadow-gray-900/50 rounded-2xl overflow-x-auto"
+           <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.3 }}
+      className="card p-4 sm:p-6 bg-white/60 dark:bg-gray-800/90 backdrop-blur-xl border border-[#D1E5E4] dark:border-gray-700 shadow-xl dark:shadow-gray-900/50 rounded-2xl overflow-x-auto"
+    >
+      {/* Header with Filters and Random Button */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
+        <h2 className="text-2xl font-bold text-indigo-700 dark:text-indigo-300">Problem List</h2>
+        <div className="flex flex-wrap gap-3 items-center">
+          <div className="flex items-center gap-2">
+            <FaFilter className="text-indigo-800 dark:text-indigo-400" />
+            <select
+              onChange={(e) => {
+                setDifficultyFilter(e.target.value);
+                setCurrentPage(1); // Reset to first page when filter changes
+              }}
+              value={difficultyFilter}
+              className="px-3 py-2 font-semibold rounded-md border border-indigo-800 dark:border-indigo-600 bg-white dark:bg-gray-700 text-indigo-800 dark:text-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-900 dark:focus:ring-indigo-500 transition"
+            >
+              <option value="">All Difficulties</option>
+              <option value="Easy">Easy</option>
+              <option value="Medium">Medium</option>
+              <option value="Hard">Hard</option>
+            </select>
+          </div>
+
+          {/* Topic filter chips would go here */}
+
+          <motion.button
+            onClick={getRandomProblem}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-4 py-2 rounded-md bg-indigo-800 dark:bg-indigo-600 text-white font-medium transition shadow-sm inline-flex items-center gap-2 hover:bg-indigo-700 dark:hover:bg-indigo-500"
           >
-            {/* Header with Filters and Random Button */}
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
-              <h2 className="text-2xl font-bold text-indigo-700 dark:text-indigo-300">Problem List</h2>
-              <div className="flex flex-wrap gap-3 items-center">
-                <div className="flex items-center gap-2">
-                  <FaFilter className="text-indigo-800 dark:text-indigo-400" />
-                  <select
-                    onChange={(e) => setDifficultyFilter(e.target.value)}
-                    value={difficultyFilter}
-                    className="px-3 py-2 font-semibold rounded-md border border-indigo-800 dark:border-indigo-600 bg-white dark:bg-gray-700 text-indigo-800 dark:text-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-900 dark:focus:ring-indigo-500 transition"
-                  >
-                    <option value="">All Difficulties</option>
-                    <option value="Easy">Easy</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Hard">Hard</option>
-                  </select>
-                </div>
+            <FaRandom /> Pick One
+          </motion.button>
+        </div>
+      </div>
 
-                <motion.button
-                  onClick={getRandomProblem}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-4 py-2 rounded-md bg-indigo-800 dark:bg-indigo-600 text-white font-medium transition shadow-sm inline-flex items-center gap-2 hover:bg-indigo-700 dark:hover:bg-indigo-500"
+      {/* Table Content */}
+      <table className="min-w-full text-sm text-left">
+        <thead>
+          <tr className="border-b border-gray-600">
+            <th className="py-2 px-4 text-indigo-800 dark:text-indigo-300 uppercase text-sm">Status</th>
+            <th className="py-2 px-4 text-indigo-800 dark:text-indigo-300 uppercase text-sm">Title</th>
+            <th className="py-2 px-4 text-indigo-800 dark:text-indigo-300 uppercase text-sm">Level</th>
+          </tr>
+        </thead>
+        <tbody>
+          {paginatedProblems.length > 0 ? (
+            paginatedProblems.map((problem, index) => (
+              <React.Fragment key={problem._id}>
+                <tr
+                  className="hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer"
+                  onClick={() => navigate(`/problem/${problem._id}`)}
                 >
-                  <FaRandom /> Pick One
-                </motion.button>
-              </div>
-            </div>
-
-            {/* Table Content */}
-            <table className="min-w-full text-sm text-left">
-              <thead>
-                <tr className="border-b border-gray-600">
-                  <th className="py-2 px-4 text-indigo-800 dark:text-indigo-300 uppercase text-sm">Status</th>
-                  <th className="py-2 px-4 text-indigo-800 dark:text-indigo-300 uppercase text-sm">Title</th>
-                  <th className="py-2 px-4 text-indigo-800 dark:text-indigo-300 uppercase text-sm">Level</th>
+                  <td className="py-2 px-4">
+                    {solvedProblems.some((sp) => sp._id === problem._id) ? (
+                      <CheckCircle className="text-indigo-500 dark:text-indigo-400 h-5 w-5" />
+                    ) : (
+                      <Circle className="text-indigo-500 dark:text-indigo-400 h-5 w-5" />
+                    )}
+                  </td>
+                  <td className="py-2 px-4 font-medium text-gray-900 dark:text-gray-100">
+                    {(currentPage - 1) * itemsPerPage + index + 1}. {problem.title}
+                  </td>
+                  <td className="py-2 px-4">
+                    <span
+                      className={`px-2 py-1 text-xs rounded-full font-semibold
+                        ${problem.difficulty === 'Easy'
+                          ? 'bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300'
+                          : problem.difficulty === 'Medium'
+                          ? 'bg-yellow-100 dark:bg-yellow-900/50 text-yellow-700 dark:text-yellow-300'
+                          : 'bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300'
+                        }`}
+                    >
+                      {problem.difficulty}
+                    </span>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {problems
-                  .filter(problem => {
-                    const levelMatch = difficultyFilter ? problem.difficulty === difficultyFilter : true;
-                    const topicMatch = selectedTopics.length
-                      ? selectedTopics.every(tag => problem.tags.includes(tag))
-                      : true;
-                    return levelMatch && topicMatch;
-                  })
-                  .map((problem, index) => (
-                    <React.Fragment key={index}>
-                      <tr
-                        className="hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer"
-                        onClick={() => navigate(`/problem/${problem._id}`)}
-                      >
-                        <td className="py-2 px-4">
-                          {solvedProblems.some((sp) => sp._id === problem._id) ? (
-                            <CheckCircle className="text-indigo-500 dark:text-indigo-400 h-5 w-5" />
-                          ) : (
-                            <Circle className="text-indigo-500 dark:text-indigo-400 h-5 w-5" />
-                          )}
-                        </td>
-                        <td className="py-2 px-4 font-medium text-gray-900 dark:text-gray-100">
-                          {index + 1}. {problem.title}
-                        </td>
-                        <td className="py-2 px-4">
-                          <span
-                            className={`px-2 py-1 text-xs rounded-full font-semibold
-                              ${problem.difficulty === 'Easy'
-                                ? 'bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300'
-                                : problem.difficulty === 'Medium'
-                                ? 'bg-yellow-100 dark:bg-yellow-900/50 text-yellow-700 dark:text-yellow-300'
-                                : 'bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300'
-                              }`}
-                          >
-                            {problem.difficulty}
-                          </span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td colSpan={2} className="py-1 px-4">
-                          <div className="flex flex-wrap gap-2">
-                            {problem.tags.map((tag) => (
-                              <span
-                                key={tag}
-                                className="bg-[#001f54]/10 dark:bg-indigo-900/30 px-2 py-1 text-xs rounded border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 dark:shimmer-text-white"
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                        </td>
-                      </tr>
-                    </React.Fragment>
-                  ))
-                }
-              </tbody>
-            </table>
-          </motion.div>
+                <tr>
+                  <td></td>
+                  <td colSpan={2} className="py-1 px-4">
+                    <div className="flex flex-wrap gap-2">
+                      {problem.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="bg-[#001f54]/10 dark:bg-indigo-900/30 px-2 py-1 text-xs rounded border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 dark:shimmer-text-white"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </td>
+                </tr>
+              </React.Fragment>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={3} className="py-4 text-center text-gray-500 dark:text-gray-400">
+                No problems found matching your filters
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+
+      {/* Pagination Controls */}
+      {filteredProblems.length > itemsPerPage && (
+        <div className="flex justify-center mt-6">
+          <div className="flex items-center gap-2 bg-white/60 dark:bg-gray-800/90 backdrop-blur-xl border border-[#D1E5E4] dark:border-gray-700 shadow-md dark:shadow-gray-900/30 rounded-lg p-2">
+            <button
+              onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+              className="px-3 py-1 rounded-md bg-indigo-100 dark:bg-gray-700 text-indigo-800 dark:text-gray-200 disabled:opacity-50 transition"
+            >
+              Previous
+            </button>
+            
+            {Array.from({ length: totalPages }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentPage(i + 1)}
+                className={`px-3 py-1 rounded-md transition ${
+                  currentPage === i + 1
+                    ? 'bg-indigo-800 dark:bg-indigo-600 text-white'
+                    : 'bg-indigo-100 dark:bg-gray-700 text-indigo-800 dark:text-gray-200 hover:bg-indigo-200 dark:hover:bg-gray-600'
+                }`}
+              >
+                {i + 1}
+              </button>
+            ))}
+            
+            <button
+              onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+              disabled={currentPage === totalPages}
+              className="px-3 py-1 rounded-md bg-indigo-100 dark:bg-gray-700 text-indigo-800 dark:text-gray-200 disabled:opacity-50 transition"
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      )}
+    </motion.div>
         </div>
         
         {/* Calendar */}
