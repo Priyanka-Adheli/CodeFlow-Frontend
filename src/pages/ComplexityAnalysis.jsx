@@ -5,6 +5,26 @@ import { Send } from "lucide-react";
 import Markdown from "react-markdown";
 
 function ComplexityAnalysis() {
+  function TypingMarkdown({ text }) {
+    const [displayedText, setDisplayedText] = useState('');
+  
+    useEffect(() => {
+      let index = 0;
+      const interval = setInterval(() => {
+        setDisplayedText((prev) => prev + text[index]);
+        index++;
+        if (index >= text.length) clearInterval(interval);
+      }, 20); // Adjust speed here
+  
+      return () => clearInterval(interval);
+    }, [text]);
+  
+    return (
+      <Markdown>
+        {displayedText}
+      </Markdown>
+    );
+  }
   const [messages, setMessages] = useState([
     {
       role: "model",
@@ -83,7 +103,11 @@ function ComplexityAnalysis() {
                 ? "bg-indigo-700 text-white rounded-br-none"
                 : "bg-indigo-50 text-black rounded-bl-none"}
             `}>
-              <Markdown>{msg.parts[0].text}</Markdown>
+              {msg.role === 'model' && index === messages.length - 1 ? (
+                           <TypingMarkdown text={msg.parts[0].text} />
+                          ) : (
+                            <Markdown>{msg.parts[0].text}</Markdown>
+                          )}
             </div>
           </div>
         ))}
