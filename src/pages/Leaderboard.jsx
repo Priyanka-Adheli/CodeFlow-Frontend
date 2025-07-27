@@ -150,7 +150,6 @@ return (
                       </div>
                       <div>
                         <div className="text-gray-800 dark:text-gray-100">{user.name}</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">{user.email}</div>
                       </div>
                     </div>
                   </td>
