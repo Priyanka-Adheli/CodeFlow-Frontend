@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import axiosClient from '../utils/axiosClient';
 import Markdown from 'react-markdown';
 const InterviewPage = () => {
