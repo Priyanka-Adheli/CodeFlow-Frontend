@@ -86,7 +86,6 @@ return (
             </div>
 
             <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">{user.name}</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400">{user.email}</p>
 
             <div className="mt-4 space-y-2">
               <p className="text-gray-700 dark:text-gray-300">
