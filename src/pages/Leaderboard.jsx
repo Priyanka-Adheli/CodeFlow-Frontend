@@ -86,6 +86,7 @@ return (
             </div>
 
             <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">{user.name}</h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{user.email}</p>
 
             <div className="mt-4 space-y-2">
               <p className="text-gray-700 dark:text-gray-300">
@@ -106,69 +107,74 @@ return (
 
       {/* Leaderboard Table */}
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        className="overflow-x-auto max-w-6xl mx-auto px-4 mb-20"
-      >
-        <div className="bg-white dark:bg-gray-800 border border-[#088395]/20 dark:border-gray-700 shadow-lg rounded-2xl overflow-hidden transition-colors duration-300">
-          <table className="min-w-full text-sm">
-            <thead className="text-sm font-semibold">
-              <tr className="bg-indigo-50 dark:bg-gray-700 border-b border-indigo-200 dark:border-gray-600 text-indigo-700 dark:text-indigo-300 text-center">
-                <th className="py-4 px-6">Rank</th>
-                <th className="py-4 px-6">Name</th>
-                <th className="py-4 px-6">Problems Solved</th>
-                <th className="py-4 px-6">🔥 Streak</th>
-                <th className="py-4 px-6">Max Streak</th>
-              </tr>
-            </thead>
-            <tbody>
-              {leaderboardData.map((user, idx) => (
-                <motion.tr
-                  key={user.rank}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.05 * idx }}
-                  className={`
-                    border-b border-gray-100 dark:border-gray-700 font-medium text-center
-                    ${idx % 2 === 0 ? 'bg-gray-50 dark:bg-gray-800' : 'bg-white dark:bg-gray-800/70'}
-                  `}
-                >
-                  <td className="py-4 px-6">
-                    <div className="flex items-center justify-center">
-                      {idx === 0 && <span className="mr-2">🥇</span>}
-                      {idx === 1 && <span className="mr-2">🥈</span>}
-                      {idx === 2 && <span className="mr-2">🥉</span>}
-                      {user.rank}
-                    </div>
-                  </td>
-                  <td className="py-4 px-6">
-                    <div className="flex items-center">
-                      <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center mr-3">
-                        <span className="text-sm">👤</span>
-                      </div>
-                      <div>
-                        <div className="text-gray-800 dark:text-gray-100">{user.name}</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="py-4 px-6 text-indigo-600 dark:text-indigo-400">
-                    {user.problemSolved}
-                  </td>
-                  <td className="py-4 px-6">
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-indigo-100 dark:bg-indigo-900/50 text-indigo-800 dark:text-indigo-200">
-                      🔥 {user.currentStreak}
-                    </span>
-                  </td>
-                  <td className="py-4 px-6 text-gray-700 dark:text-gray-300">
-                    {user.MaxStreak}
-                  </td>
-                </motion.tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </motion.div>
+  initial={{ opacity: 0 }}
+  whileInView={{ opacity: 1 }}
+  transition={{ duration: 0.8 }}
+  className="max-w-6xl mx-auto px-4 mb-20"
+>
+  {/* Outer wrapper allows horizontal scroll on small screens */}
+  <div className="overflow-x-auto">
+    <div className="bg-white dark:bg-gray-800 border border-[#088395]/20 dark:border-gray-700 shadow-lg rounded-2xl overflow-hidden transition-colors duration-300 min-w-[600px] sm:min-w-full">
+      <table className="w-full text-sm">
+        <thead className="text-sm font-semibold">
+          <tr className="bg-indigo-50 dark:bg-gray-700 border-b border-indigo-200 dark:border-gray-600 text-indigo-700 dark:text-indigo-300 text-center">
+            <th className="py-4 px-6">Rank</th>
+            <th className="py-4 px-6">Name</th>
+            <th className="py-4 px-6">Problems Solved</th>
+            <th className="py-4 px-6">🔥 Streak</th>
+            <th className="py-4 px-6">Max Streak</th>
+          </tr>
+        </thead>
+        <tbody>
+          {leaderboardData.map((user, idx) => (
+            <motion.tr
+              key={user.rank}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.05 * idx }}
+              className={`
+                border-b border-gray-100 dark:border-gray-700 font-medium text-center
+                ${idx % 2 === 0 ? 'bg-gray-50 dark:bg-gray-800' : 'bg-white dark:bg-gray-800/70'}
+              `}
+            >
+              <td className="py-4 px-6">
+                <div className="flex items-center justify-center">
+                  {idx === 0 && <span className="mr-2">🥇</span>}
+                  {idx === 1 && <span className="mr-2">🥈</span>}
+                  {idx === 2 && <span className="mr-2">🥉</span>}
+                  {user.rank}
+                </div>
+              </td>
+              <td className="py-4 px-6">
+                <div className="flex items-center">
+                  <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center mr-3">
+                    <span className="text-sm">👤</span>
+                  </div>
+                  <div>
+                    <div className="text-gray-800 dark:text-gray-100">{user.name}</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">{user.email}</div>
+                  </div>
+                </div>
+              </td>
+              <td className="py-4 px-6 text-indigo-600 dark:text-indigo-400">
+                {user.problemSolved}
+              </td>
+              <td className="py-4 px-6">
+                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-indigo-100 dark:bg-indigo-900/50 text-indigo-800 dark:text-indigo-200">
+                  🔥 {user.currentStreak}
+                </span>
+              </td>
+              <td className="py-4 px-6 text-gray-700 dark:text-gray-300">
+                {user.MaxStreak}
+              </td>
+            </motion.tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</motion.div>
+
     </div>
   );
 };
