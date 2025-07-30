@@ -496,7 +496,19 @@ function Dashboard() {
                 >
                   {problem.title}
                 </td>
-                <td>{problem.difficulty}</td>
+                <td>
+                  <span
+                      className={`px-2 py-1 text-xs rounded-full font-semibold
+                        ${problem.difficulty === 'Easy'
+                          ? 'bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300'
+                          : problem.difficulty === 'Medium'
+                          ? 'bg-yellow-100 dark:bg-yellow-900/50 text-yellow-700 dark:text-yellow-300'
+                          : 'bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300'
+                        }`}
+                    >
+                      {problem.difficulty}
+                    </span>
+                </td>
                 <td>{problem.language}</td>
                 <td>{problem.runtime}ms</td>
                 <td>{problem.memory}KB</td>
